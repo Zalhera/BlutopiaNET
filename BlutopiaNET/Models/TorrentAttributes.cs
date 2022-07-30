@@ -40,7 +40,7 @@ namespace BlutopiaNET.Models
         public string InfoHash { get; set; }
 
         [JsonPropertyName("size")]
-        public object Size { get; set; }
+        public long Size { get; set; }
 
         [JsonPropertyName("num_file")]
         public int NumFile { get; set; }

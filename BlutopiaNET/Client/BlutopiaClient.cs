@@ -3,6 +3,7 @@ using BlutopiaNET.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace BlutopiaNET.Client
 {
     public sealed class BlutopiaClient : IDisposable
     {
+        private readonly CookieContainer _cookieContainer;
+        private readonly HttpClientHandler _handler;
         private readonly HttpClient _httpClient;
         private readonly string _apiToken;
 
@@ -18,11 +21,16 @@ namespace BlutopiaNET.Client
         {
             _apiToken = apiToken;
 
-            _httpClient = new HttpClient()
+            _cookieContainer = new CookieContainer();
+            _handler = new HttpClientHandler()
             {
-                BaseAddress = new Uri(BlutopiaConstants.Routes.BlutopiaApiUrl),
+                PreAuthenticate = true,
+                CookieContainer = _cookieContainer,
+                UseCookies = true,
             };
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiToken);
+            _httpClient = new HttpClient(_handler);
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _apiToken);
+            //_httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", $"Bearer {_apiToken}");
         }
 
         public async Task<TorrentCollection> GetTorrentsAsync(int? page = null, Filter? filter = null)
@@ -37,10 +45,27 @@ namespace BlutopiaNET.Client
             return await GetAsync<Torrent>($"{BlutopiaConstants.Routes.TorrentsSubUrl}/{torrentId}");
         }
 
+        public async Task DownloadTorrentAsync(Torrent torrent, string path, string? fileName = null)
+        {
+            using(var response = await _httpClient.GetAsync(torrent.Attributes.DownloadLink))
+            {
+                if(!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"Unable to download torrent from {torrent.Attributes.DownloadLink}");
+                }
+
+                using(var fileStream = new FileStream(Path.Combine(path, fileName ?? $"{torrent.Attributes.InfoHash}.torrent"), FileMode.Create, FileAccess.Write))
+                {
+                    var torrentStream = await response.Content.ReadAsStreamAsync();
+                    await torrentStream.CopyToAsync(fileStream);
+                }
+            }
+        }
+
         private async Task<T> GetAsync<T>(string route)
             where T : new()
         {
-            using (var response = await _httpClient.GetAsync(route))
+            using (var response = await _httpClient.GetAsync($"{BlutopiaConstants.Routes.BlutopiaApiUrl}{route}"))
             {
                 if(!response.IsSuccessStatusCode)
                 {

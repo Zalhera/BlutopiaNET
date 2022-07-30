@@ -1,6 +1,7 @@
 ﻿using BlutopiaNET.Constants;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -59,6 +60,7 @@ namespace BlutopiaNET.Models
         public bool? IsDying { get; set; }
         public bool? IsDead { get; set; }
 
+        [DebuggerStepThrough]
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
