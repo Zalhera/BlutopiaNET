@@ -10,10 +10,10 @@ namespace BlutopiaNET.Models
     public class Metadata
     {
         [JsonPropertyName("poster")]
-        public string Poster { get; set; }
+        public string Poster { get; set; } = string.Empty;
 
         [JsonPropertyName("genres")]
-        public string Genres { get; set; }
+        public string Genres { get; set; } = string.Empty;
 
         [JsonPropertyName("current_page")]
         public int CurrentPage { get; set; }
@@ -25,10 +25,10 @@ namespace BlutopiaNET.Models
         public int LastPage { get; set; }
 
         [JsonPropertyName("links")]
-        public List<Link> Links { get; set; }
+        public List<Link> Links { get; set; } = new List<Link>();
 
         [JsonPropertyName("path")]
-        public string Path { get; set; }
+        public string Path { get; set; } = string.Empty;
 
         [JsonPropertyName("per_page")]
         public int PerPage { get; set; }

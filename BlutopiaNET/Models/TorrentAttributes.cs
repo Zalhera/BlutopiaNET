@@ -10,34 +10,34 @@ namespace BlutopiaNET.Models
     public class TorrentAttributes
     {
         [JsonPropertyName("meta")]
-        public Metadata Meta { get; set; }
+        public Metadata Meta { get; set; } = default!;
 
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [JsonPropertyName("release_year")]
-        public string ReleaseYear { get; set; }
+        public string ReleaseYear { get; set; } = string.Empty;
 
         [JsonPropertyName("category")]
-        public string Category { get; set; }
+        public string Category { get; set; } = string.Empty;
 
         [JsonPropertyName("type")]
-        public string Type { get; set; }
+        public string Type { get; set; } = string.Empty;
 
         [JsonPropertyName("resolution")]
-        public string Resolution { get; set; }
+        public string Resolution { get; set; } = string.Empty;
 
         [JsonPropertyName("media_info")]
-        public string MediaInfo { get; set; }
+        public string MediaInfo { get; set; } = string.Empty;
 
         [JsonPropertyName("bd_info")]
-        public string BdInfo { get; set; }
+        public string BdInfo { get; set; } = string.Empty;
 
         [JsonPropertyName("description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [JsonPropertyName("info_hash")]
-        public string InfoHash { get; set; }
+        public string InfoHash { get; set; } = string.Empty;
 
         [JsonPropertyName("size")]
         public long Size { get; set; }
@@ -46,7 +46,7 @@ namespace BlutopiaNET.Models
         public int NumFile { get; set; }
 
         [JsonPropertyName("freeleech")]
-        public string Freeleech { get; set; }
+        public string Freeleech { get; set; } = string.Empty;
 
         [JsonPropertyName("double_upload")]
         public int DoubleUpload { get; set; }
@@ -55,7 +55,7 @@ namespace BlutopiaNET.Models
         public int Internal { get; set; }
 
         [JsonPropertyName("uploader")]
-        public string Uploader { get; set; }
+        public string Uploader { get; set; } = string.Empty;
 
         [JsonPropertyName("seeders")]
         public int Seeders { get; set; }
@@ -67,19 +67,19 @@ namespace BlutopiaNET.Models
         public int TimesCompleted { get; set; }
 
         [JsonPropertyName("tmdb_id")]
-        public string TmdbId { get; set; }
+        public string TmdbId { get; set; } = string.Empty;
 
         [JsonPropertyName("imdb_id")]
-        public string ImdbId { get; set; }
+        public string ImdbId { get; set; } = string.Empty;
 
         [JsonPropertyName("tvdb_id")]
-        public string TvdbId { get; set; }
+        public string TvdbId { get; set; } = string.Empty;
 
         [JsonPropertyName("mal_id")]
-        public string MalId { get; set; }
+        public string MalId { get; set; } = string.Empty;
 
         [JsonPropertyName("igdb_id")]
-        public string IgdbId { get; set; }
+        public string IgdbId { get; set; } = string.Empty;
 
         [JsonPropertyName("category_id")]
         public int CategoryId { get; set; }
@@ -94,16 +94,16 @@ namespace BlutopiaNET.Models
         public DateTime CreatedAt { get; set; }
 
         [JsonPropertyName("download_link")]
-        public string DownloadLink { get; set; }
+        public string DownloadLink { get; set; } = string.Empty;
 
         [JsonPropertyName("details_link")]
-        public string DetailsLink { get; set; }
+        public string DetailsLink { get; set; } = string.Empty;
 
         [JsonPropertyName("distributor")]
-        public string Distributor { get; set; }
+        public string Distributor { get; set; } = string.Empty;
 
         [JsonPropertyName("region")]
-        public string Region { get; set; }
+        public string Region { get; set; } = string.Empty;
 
         [JsonPropertyName("distributor_id")]
         public int? DistributorId { get; set; }

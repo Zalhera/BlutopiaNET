@@ -70,16 +70,16 @@ namespace BlutopiaNET.Models
             {
                 object? value = pair.Value.GetValue(this);
 
-                if(value == null)
-                {
+                if (value == null)
                     continue;
-                }
 
                 if(pair.Value.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) &&
                     Nullable.GetUnderlyingType(pair.Value.PropertyType) == typeof(string[]))
                 {
                     var listValue = value as string[];
-                    stringBuilder.Append($"{pair.Key}=[{string.Join(',', listValue)}]&");
+
+                    if(listValue != null)
+                        stringBuilder.Append($"{pair.Key}=[{string.Join(',', listValue)}]&");
                 }
                 else
                 {
