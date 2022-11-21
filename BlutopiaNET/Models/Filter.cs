@@ -1,11 +1,7 @@
 ﻿using BlutopiaNET.Constants;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BlutopiaNET.Models
 {
@@ -79,7 +75,11 @@ namespace BlutopiaNET.Models
                     var listValue = value as string[];
 
                     if(listValue != null)
+#if NETSTANDARD2_0
+                        stringBuilder.Append($"{pair.Key}=[{string.Join(",", listValue)}]&");
+#else
                         stringBuilder.Append($"{pair.Key}=[{string.Join(',', listValue)}]&");
+#endif
                 }
                 else
                 {
